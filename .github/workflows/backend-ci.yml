@@ -6,7 +6,7 @@ on:
     branches:
       - "*" # Simply run this workflow on every push
     paths:
-      - "backend/**" # Run when files change in the backend folder only
+      - "pulsebackend/**" # Run when files change in the backend folder only
       - ".github/workflows/backend-ci.yml" # Run when content of backend-ci changes
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
           cache: "maven"
 
       - name: "Run unit tests"
-        run: mvn --batch-mode test --file backend/pom.xml
+        run: mvn --batch-mode test --file pulsebackend/pom.xml
 
       - name: "Run integration tests"
-        run: mvn --batch-mode verify --file backend/pom.xml -Pintegration-tests # run integration tests with profile integration-test defined in pom.xml
+        run: mvn --batch-mode verify --file pulsebackend/pom.xml -Pintegration-tests # run integration tests with profile integration-test defined in pom.xml
