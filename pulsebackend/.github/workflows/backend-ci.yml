@@ -1,0 +1,32 @@
+name: "Continuous Integration Process for Pulse Backend - performing building, linting and testing from multiple contributors (well it's me only for now)"
+run-name: ${{ github.actor }} is testing out continuous integration in GitHub Actions
+
+on:
+  push:
+    branches:
+      - '*' # Simply run this workflow on every push
+    paths:
+      - 'backend/**' # Run when files change in the backend folder only
+      - '.github/workflows/backend-ci.yml' # Run when content of backend-ci changes
+
+jobs:
+  tests:
+    name: 'Run Unit and Integration Tests for Pulse Backend'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout code to run on GITHUB_WORKSPACE'
+        uses: actions/checkout@v4
+
+      - name: 'Setup JDK 17'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+          cache: 'maven'
+
+      - name: 'Run unit tests'
+        run: mvn --batch-mode test --file backend/pom.xml
+
+      - name: 'Run integration tests'
+        run: mvn --batch-mode verify --file backend/pom.xml -Pintegration-tests # run integration tests with profile integration-test defined in pom.xml
