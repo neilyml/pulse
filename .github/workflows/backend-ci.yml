@@ -9,13 +9,6 @@ on:
       - "backend/**" # Run when files change in the backend folder only
       - ".github/workflows/backend-ci.yml" # Run when content of backend-ci changes
 
-  pull_request:
-    branches:
-      - "*"
-    paths:
-      - "backend/**"
-      - ".github/workflows/backend-ci.yml"
-
 jobs:
   tests:
     name: "Run Unit and Integration Tests for Pulse Backend"
