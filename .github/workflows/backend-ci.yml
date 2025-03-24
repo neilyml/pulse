@@ -11,7 +11,7 @@ on:
 
 jobs:
   tests:
-    name: "Run Unit and Integration Tests for Pulse Backend"
+    name: "Unit and Integration Tests"
     runs-on: ubuntu-latest
 
     steps:
