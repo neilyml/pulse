@@ -1,4 +1,4 @@
-name: "Continuous Integration Process for Pulse Backend - performing building, linting and testing from multiple contributors (well it's me only for now)"
+name: "Build, Test and Deploy"
 run-name: ${{ github.actor }} is testing out continuous integration in GitHub Actions
 
 on:
