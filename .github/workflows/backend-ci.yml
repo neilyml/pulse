@@ -50,6 +50,6 @@ jobs:
       - name: "Build application Jar"
         run: |
           mvn clean package -DskipTests --file pulsebackend/pom.xml
-          ls backend/target
+          ls pulsebackend/target
           
       
