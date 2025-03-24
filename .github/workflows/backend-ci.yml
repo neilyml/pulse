@@ -11,7 +11,7 @@ on:
 
 jobs:
   tests:
-    name: "Unit and Integration Tests"
+    name: "CI Tests"
     runs-on: ubuntu-latest
 
     steps:
