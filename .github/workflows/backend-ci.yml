@@ -82,6 +82,5 @@ jobs:
           file: ./pulsebackend/src/main/docker/Dockerfile
           tags: |
             ${{ steps.meta.outputs.tags }}
-            ghcr.io/${{ github.repository }}/pulsebackend:${{ steps.project.outputs.version }}
-            ghcr.io/${{ github.repository }}/pulsebackend:${{ steps.project.outputs.version }}-sha-${{ github.sha }}
+            ghcr.io/${{ github.repository }}/pulsebackend:sha-${{ github.sha }}
           labels: ${{ steps.meta.outputs.labels }}
