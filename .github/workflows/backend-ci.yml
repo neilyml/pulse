@@ -35,7 +35,7 @@ jobs:
     name: "Build application image"
     needs: tests
     runs-on: ubuntu-latest
-    permissions: # To upload to ghcr: https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images
+    permissions: # To upload to ghcr using GITHUB_TOKEN: https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images
       contents: read
       packages: write
       attestations: write
