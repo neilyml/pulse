@@ -51,5 +51,21 @@ jobs:
         run: |
           mvn --batch-mode clean package -DskipTests --file pulsebackend/pom.xml
           ls pulsebackend/target
-          
-      
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          version: latest
+
+      - name: Build pulsebackend Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: . # Keep the context root because Dockerfile handles where the jar is at
+          push: false # false = just build the image for now
+          load: true # load the image in the docker daemon
+          tags: |
+            pulsebackend:latest
+            pulsebackend:${{ github.sha }}
+
+      - name: Verify Docker Image Build
+        run: docker image ls | grep pulsebackend
