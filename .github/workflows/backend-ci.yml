@@ -63,6 +63,7 @@ jobs:
           context: . # Keep the context root because Dockerfile handles where the jar is at
           push: false # false = just build the image for now
           load: true # load the image in the docker daemon
+          file: {{context}}/pulsebackend/src/main/docker/Dockerfile
           tags: |
             pulsebackend:latest
             pulsebackend:${{ github.sha }}
