@@ -57,16 +57,31 @@ jobs:
         with:
           version: latest
 
-      - name: "Build pulsebackend Docker image"
+      - name: "Login to GitHub Container Registry"
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Extract metadata for Docker"
+        id: meta # for later use in the below workflows
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}/pulsebackend
+          tags: |
+            type=sha,format=short
+            type=ref,event=branch
+            latest
+
+      - name: "Build and Push Docker image to GitHub Container Registry"
         uses: docker/build-push-action@v6
         with:
           context: . # Keep the context root because Dockerfile handles where the jar is at
-          push: false # false = just build the image for now
-          load: true # load the image in the docker daemon
+          push: true # false = just build the image for now
           file: ./pulsebackend/src/main/docker/Dockerfile
           tags: |
-            pulsebackend:latest
-            pulsebackend:${{ github.sha }}
-
-      - name: "Verify Docker Image Build"
-        run: docker image ls | grep pulsebackend
+            ${{ steps.meta.outputs.tags }}
+            ghcr.io/${{ github.repository }}/pulsebackend:${{ steps.project.outputs.version }}
+            ghcr.io/${{ github.repository }}/pulsebackend:${{ steps.project.outputs.version }}-sha-${{ github.sha }}
+          labels: ${{ steps.meta.outputs.labels }}
