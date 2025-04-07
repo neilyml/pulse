@@ -14,7 +14,7 @@ metadata:
   name: pulsebackend
   labels:
     app: pulsebackend-development # must match spec.template.metadata.labels.app
-    environment: developement
+    environment: development
 
 # Defines the desired behaviour of the Deployment.
 spec:
