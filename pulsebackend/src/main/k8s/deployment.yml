@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: pulsebackend
-          image: pulsebackend:latest
+          image: pulsebackend:52bee0c
           imagePullPolicy: Never # Important: prevents K8s from trying to pull from registry
           resources: { }
           ports:
