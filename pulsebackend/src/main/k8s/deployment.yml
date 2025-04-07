@@ -1,0 +1,44 @@
+# A Deployment is a Kubernetes Object that manages a ReplicaSet.
+# A ReplicaSet manages a set of Pods.
+# A Pod is a group of one or more containers that are deployed together.
+# Usually a pod contains a single container.
+# In simple terms, a Pod acts as an abstraction over a container ->
+# a ReplicaSet acts as an abstraction over a Pod -> a Deployment acts as an abstraction over a ReplicaSet.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # We use namespaces to group resources together within the Kubernetes cluster. By default, all resources are in the default namespace.
+  namespace: dev
+  # A unique identifier for the deployment within the namespace.
+  name: pulsebackend
+  labels:
+    app: pulsebackend-development # must match spec.template.metadata.labels.app
+    environment: development
+
+# Defines the desired behaviour of the Deployment.
+spec:
+  selector:
+    matchLabels:
+      app: pulsebackend-development
+
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: pulsebackend-development # must match metadata.labels.app
+    spec:
+      containers:
+        - name: pulsebackend
+          image: pulsebackend:52bee0c
+          imagePullPolicy: Never # Important: prevents K8s from trying to pull from registry
+          resources: { }
+          ports:
+            - containerPort: 8080
+          env:
+            - name: LOGGING_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: pulsebackend-configmap
+                  key: com.pulse.app.pulsebackend.logging-level
+

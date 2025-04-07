@@ -1,3 +1,7 @@
 spring:
   application:
     name: pulsebackend
+
+logging:
+  level:
+    com.pulse.app.pulsebackend: ${LOGGING_LEVEL:INFO}

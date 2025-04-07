@@ -5,10 +5,7 @@ on:
   push:
     branches:
       - "*" # Simply run this workflow on every push
-    paths:
-      - "pulsebackend/**" # Run when files change in the backend folder only
-      - ".github/workflows/backend-ci.yml" # Run when content of backend-ci changes
-
+  workflow_dispatch:
 
 jobs:
   tests:
