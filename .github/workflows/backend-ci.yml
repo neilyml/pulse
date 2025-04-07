@@ -7,9 +7,6 @@ on:
       - "*" # Simply run this workflow on every push
   workflow_dispatch:
 
-
-
-
 jobs:
   tests:
     name: "CI Tests"
