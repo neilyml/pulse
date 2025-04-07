@@ -29,9 +29,16 @@ spec:
         app: pulsebackend-development # must match metadata.labels.app
     spec:
       containers:
-        - name: pulsebackend # TODO:
+        - name: pulsebackend
           image: pulsebackend:latest
           imagePullPolicy: Never # Important: prevents K8s from trying to pull from registry
           resources: { }
           ports:
             - containerPort: 8080
+          env:
+            - name: LOGGING_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: pulsebackend-configmap
+                  key: com.pulse.app.pulsebackend.logging-level
+
